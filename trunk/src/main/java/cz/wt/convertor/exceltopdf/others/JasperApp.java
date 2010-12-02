@@ -1,4 +1,4 @@
-package cz.wt.convertor.exceltopdf;
+package cz.wt.convertor.exceltopdf.others;
 
 /*
  * JasperReports - Free Java Reporting Library.
@@ -54,7 +54,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  * @author Teodor Danciu (teodord@users.sourceforge.net)
- * @version $Id$
+ * @version $Id: JasperApp.java 3 2010-12-02 10:17:23Z diblikp $
  */
 public class JasperApp extends AbstractSampleApp {
 

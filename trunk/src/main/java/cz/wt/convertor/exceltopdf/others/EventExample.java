@@ -1,6 +1,6 @@
-// $Id$
-// Klasifikace: CHRÁNĚNÉ
-package cz.wt.convertor.exceltopdf;
+// $Id: EventExample.java 3 2010-12-02 10:17:23Z diblikp $
+// Klasifikace: CHR�?NĚNÉ
+package cz.wt.convertor.exceltopdf.others;
 
 import java.io.FileInputStream;
 import java.io.IOException;

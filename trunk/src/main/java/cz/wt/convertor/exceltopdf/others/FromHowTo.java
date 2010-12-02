@@ -14,7 +14,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 ==================================================================== */
-package cz.wt.convertor.exceltopdf;
+package cz.wt.convertor.exceltopdf.others;
 
 import java.io.InputStream;
 import java.util.Iterator;
