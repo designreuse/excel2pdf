@@ -1,7 +1,8 @@
-// $Id$
-// Klasifikace: CHR�?NĚNÉ
-package cz.wt.convertor.exceltopdf.accesor;
+// $Id: TableRowCellProcessor.java 5 2010-12-02 23:56:08Z diblikp $
+// Klasifikace: CHR�?NĚNÉ
+package cz.wt.convertor.exceltopdf.jasperreports;
 
+import cz.wt.convertor.exceltopdf.jasperreports.datasource.DataSource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -25,7 +26,7 @@ import org.joda.time.format.DateTimeFormatter;
 /**
  * 
  * @author diblik
- * @version $Revision$
+ * @version $Revision: 5 $
  */
 public class TableRowCellProcessor {
 
@@ -33,8 +34,8 @@ public class TableRowCellProcessor {
     private DataSource dataSource = new DataSource();
     private HSSFWorkbook workbook;
 
-    public DataSource process(String inputFileName) {
-        readInputFileAndProcess(new File(inputFileName));
+    public DataSource process(File inputFile) {
+        readInputFileAndProcess(inputFile);
 
         for (int k = 0; k < workbook.getNumberOfSheets(); k++) {
             HSSFSheet sheet = workbook.getSheetAt(k);

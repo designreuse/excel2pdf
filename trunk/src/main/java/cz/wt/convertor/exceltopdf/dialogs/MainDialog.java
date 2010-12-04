@@ -1,0 +1,323 @@
+/*
+ * DesktopApplication1View.java
+ */
+package cz.wt.convertor.exceltopdf.dialogs;
+
+import cz.wt.convertor.exceltopdf.BaseApp;
+import cz.wt.convertor.exceltopdf.dialogs.AboutDialog;
+import cz.wt.convertor.exceltopdf.jasperreports.datasource.DataSource;
+import cz.wt.convertor.exceltopdf.utils.FileUtils;
+import cz.wt.convertor.exceltopdf.utils.ProcessUtils;
+import java.awt.Dimension;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.RoundRectangle2D;
+import java.io.File;
+import org.jdesktop.application.Action;
+import org.jdesktop.application.SingleFrameApplication;
+import org.jdesktop.application.FrameView;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import org.jdesktop.swingx.JXBusyLabel;
+import org.jdesktop.swingx.icon.EmptyIcon;
+import org.jdesktop.swingx.painter.BusyPainter;
+
+/**
+ * The application's main frame.
+ */
+public class MainDialog extends FrameView {
+
+    private JDialog aboutBox;
+
+    private JDialog helpBox;
+
+    public MainDialog(SingleFrameApplication app) {
+        super(app);
+
+        initComponents();
+        initFileChoosers();
+    }
+
+    private void initFileChoosers() {
+        fileChooserExcel.setExtensionsDescrOpen("Excel 1997 - 2003");
+        fileChooserExcel.addAllowExtensionsOpen(".xls");
+
+        fileChooserTemplate.setExtensionsDescrOpen("sablona JasperReports");
+        fileChooserTemplate.addAllowExtensionsOpen(".jrxml");
+
+        setupComplexBusyLabel(jXBusyLabel1);
+        jLabelImage.setVisible(false);
+    }
+
+    @Action
+    public void showAboutBox() {
+        if (aboutBox == null) {
+            JFrame mainFrame = BaseApp.getApplication().getMainFrame();
+            aboutBox = new AboutDialog(mainFrame);
+            aboutBox.setLocationRelativeTo(mainFrame);
+        }
+        BaseApp.getApplication().show(aboutBox);
+    }
+
+    @Action
+    public void showHelpBox() {
+        if (helpBox == null) {
+            JFrame mainFrame = BaseApp.getApplication().getMainFrame();
+            helpBox = new HelpDialog(mainFrame);
+            helpBox.setLocationRelativeTo(mainFrame);
+        }
+        BaseApp.getApplication().show(helpBox);
+    }
+
+    public void setupComplexBusyLabel(JXBusyLabel label) {
+        BusyPainter painter = new BusyPainter(
+                new RoundRectangle2D.Float(0, 0, 4.0f, 1.4f, 10.0f, 10.0f),
+                new Ellipse2D.Float(3.0f, 3.0f, 15.0f, 15.0f));
+        painter.setTrailLength(18);
+        painter.setPoints(36);
+        painter.setFrame(2);
+        label.setPreferredSize(new Dimension(21, 21));
+        label.setIcon(new EmptyIcon(21, 21));
+        label.setBusyPainter(painter);
+        label.setBusy(true);
+        label.setBusy(false);
+    }
+
+    @Action
+    public void process() {
+        jLabelImage.setVisible(false);
+
+        jLabelImage.setEnabled(true);
+        jXBusyLabel1.setBusy(true);
+
+        DataSource dataSource = ProcessUtils.loadExcelFileToDataSource(fileChooserExcel.getFile());
+        ProcessUtils.printJRDataSource(dataSource, fileChooserTemplate.getFile());
+//        byte[] byteArrayPdf = ProcessUtils.transformJRDataSourceToPDF(dataSource, fileChooserTemplate.getFile());
+//
+//        // DONE
+//        if (byteArrayPdf != null) {
+//            File saveFileFromByteArray = ProcessUtils.saveFileFromByteArray(FileUtils.saveFile(container, "generated", ".pdf", "pdf"), byteArrayPdf);
+//            if (saveFileFromByteArray != null) {
+//                jLabelInfo.setText("Uložen soubor " + saveFileFromByteArray.getName());
+//                jXBusyLabel1.setBusy(false);
+//                jXBusyLabel1.setEnabled(false);
+//                jLabelImage.setVisible(true);
+//            }
+//        }
+
+        jXBusyLabel1.setBusy(false);
+
+    }
+
+    @Action
+    public void processPrint() {
+        DataSource dataSource = ProcessUtils.loadExcelFileToDataSource(fileChooserExcel.getFile());
+        ProcessUtils.printJRDataSource(dataSource, fileChooserTemplate.getFile());
+    }
+
+    @Action
+    public void processPdf() {
+        DataSource dataSource = ProcessUtils.loadExcelFileToDataSource(fileChooserExcel.getFile());
+        byte[] byteArrayPdf = ProcessUtils.transformJRDataSourceToPDF(dataSource, fileChooserTemplate.getFile());
+
+        // DONE
+        if (byteArrayPdf != null) {
+            File saveFileFromByteArray = ProcessUtils.saveFileFromByteArray(FileUtils.saveFile(container, "generated", ".pdf", "pdf"), byteArrayPdf);
+            if (saveFileFromByteArray != null) {
+                jLabelInfo.setText("Ulozen soubor " + saveFileFromByteArray.getName());
+                jXBusyLabel1.setBusy(false);
+                jXBusyLabel1.setEnabled(false);
+                jLabelImage.setVisible(true);
+            }
+        }
+    }
+
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        menuBar = new javax.swing.JMenuBar();
+        javax.swing.JMenu fileMenu = new javax.swing.JMenu();
+        javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
+        javax.swing.JMenu helpMenu = new javax.swing.JMenu();
+        helpMenuItem = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
+        statusPanel = new javax.swing.JPanel();
+        javax.swing.JSeparator statusPanelSeparator = new javax.swing.JSeparator();
+        jXBusyLabel1 = new org.jdesktop.swingx.JXBusyLabel();
+        jLabelInfo = new javax.swing.JLabel();
+        jLabelImage = new javax.swing.JLabel();
+        container = new javax.swing.JPanel();
+        fileChooserTemplate = new cz.wt.convertor.exceltopdf.bean.FileChooser();
+        fileChooserExcel = new cz.wt.convertor.exceltopdf.bean.FileChooser();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
+        menuBar.setName("menuBar"); // NOI18N
+
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(cz.wt.convertor.exceltopdf.BaseApp.class).getContext().getResourceMap(MainDialog.class);
+        fileMenu.setText(resourceMap.getString("fileMenu.text")); // NOI18N
+        fileMenu.setName("fileMenu"); // NOI18N
+
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(cz.wt.convertor.exceltopdf.BaseApp.class).getContext().getActionMap(MainDialog.class, this);
+        exitMenuItem.setAction(actionMap.get("quit")); // NOI18N
+        exitMenuItem.setName("exitMenuItem"); // NOI18N
+        fileMenu.add(exitMenuItem);
+
+        menuBar.add(fileMenu);
+
+        helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
+        helpMenu.setName("helpMenu"); // NOI18N
+
+        helpMenuItem.setAction(actionMap.get("showHelpBox")); // NOI18N
+        helpMenuItem.setText(resourceMap.getString("helpMenuItem.text")); // NOI18N
+        helpMenuItem.setEnabled(false);
+        helpMenuItem.setName("helpMenuItem"); // NOI18N
+        helpMenu.add(helpMenuItem);
+
+        aboutMenuItem.setAction(actionMap.get("showAboutBox")); // NOI18N
+        aboutMenuItem.setName("aboutMenuItem"); // NOI18N
+        helpMenu.add(aboutMenuItem);
+
+        menuBar.add(helpMenu);
+
+        statusPanel.setName("statusPanel"); // NOI18N
+        statusPanel.setLayout(new java.awt.GridBagLayout());
+
+        statusPanelSeparator.setName("statusPanelSeparator"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 502;
+        gridBagConstraints.ipady = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        statusPanel.add(statusPanelSeparator, gridBagConstraints);
+
+        jXBusyLabel1.setText(resourceMap.getString("jXBusyLabel1.text")); // NOI18N
+        jXBusyLabel1.setDirection(org.jdesktop.swingx.JXBusyLabel.Direction.RIGHT);
+        jXBusyLabel1.setName("jXBusyLabel1"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 1, 1);
+        statusPanel.add(jXBusyLabel1, gridBagConstraints);
+
+        jLabelInfo.setText(resourceMap.getString("jLabelInfo.text")); // NOI18N
+        jLabelInfo.setName("jLabelInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        statusPanel.add(jLabelInfo, gridBagConstraints);
+
+        jLabelImage.setIcon(resourceMap.getIcon("jLabelImage.icon")); // NOI18N
+        jLabelImage.setText(resourceMap.getString("jLabelImage.text")); // NOI18N
+        jLabelImage.setName("jLabelImage"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        statusPanel.add(jLabelImage, gridBagConstraints);
+
+        container.setName("container"); // NOI18N
+        container.setLayout(new java.awt.GridBagLayout());
+
+        fileChooserTemplate.setName("fileChooserTemplate"); // NOI18N
+        fileChooserTemplate.setVisibleButtonOpen(true);
+        fileChooserTemplate.setVisibleButtonSave(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 5);
+        container.add(fileChooserTemplate, gridBagConstraints);
+
+        fileChooserExcel.setName("fileChooserExcel"); // NOI18N
+        fileChooserExcel.setVisibleButtonOpen(true);
+        fileChooserExcel.setVisibleButtonSave(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 5);
+        container.add(fileChooserExcel, gridBagConstraints);
+
+        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
+        jLabel2.setName("jLabel2"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        container.add(jLabel2, gridBagConstraints);
+
+        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
+        jLabel3.setName("jLabel3"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        container.add(jLabel3, gridBagConstraints);
+
+        jButton1.setAction(actionMap.get("processPdf")); // NOI18N
+        jButton1.setIcon(resourceMap.getIcon("jButton1.icon")); // NOI18N
+        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        jButton1.setToolTipText(resourceMap.getString("jButton1.toolTipText")); // NOI18N
+        jButton1.setName("jButton1"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 6, 5);
+        container.add(jButton1, gridBagConstraints);
+
+        jButton2.setAction(actionMap.get("processPrint")); // NOI18N
+        jButton2.setIcon(resourceMap.getIcon("jButton2.icon")); // NOI18N
+        jButton2.setToolTipText(resourceMap.getString("jButton2.toolTipText")); // NOI18N
+        jButton2.setName("jButton2"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 6, 5);
+        container.add(jButton2, gridBagConstraints);
+
+        setComponent(container);
+        setMenuBar(menuBar);
+        setStatusBar(statusPanel);
+    }// </editor-fold>//GEN-END:initComponents
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel container;
+    private cz.wt.convertor.exceltopdf.bean.FileChooser fileChooserExcel;
+    private cz.wt.convertor.exceltopdf.bean.FileChooser fileChooserTemplate;
+    private javax.swing.JMenuItem helpMenuItem;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelImage;
+    private javax.swing.JLabel jLabelInfo;
+    private org.jdesktop.swingx.JXBusyLabel jXBusyLabel1;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JPanel statusPanel;
+    // End of variables declaration//GEN-END:variables
+}

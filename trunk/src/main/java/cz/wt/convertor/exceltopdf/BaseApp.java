@@ -4,19 +4,20 @@
 
 package cz.wt.convertor.exceltopdf;
 
+import cz.wt.convertor.exceltopdf.dialogs.MainDialog;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
 /**
  * The main class of the application.
  */
-public class DesktopApplication1 extends SingleFrameApplication {
+public class BaseApp extends SingleFrameApplication {
 
     /**
      * At startup create and show the main frame of the application.
      */
     @Override protected void startup() {
-        show(new DesktopApplication1View(this));
+        show(new MainDialog(this));
     }
 
     /**
@@ -31,14 +32,14 @@ public class DesktopApplication1 extends SingleFrameApplication {
      * A convenient static getter for the application instance.
      * @return the instance of DesktopApplication1
      */
-    public static DesktopApplication1 getApplication() {
-        return Application.getInstance(DesktopApplication1.class);
+    public static BaseApp getApplication() {
+        return Application.getInstance(BaseApp.class);
     }
 
     /**
      * Main method launching the application.
      */
     public static void main(String[] args) {
-        launch(DesktopApplication1.class, args);
+        launch(BaseApp.class, args);
     }
 }
