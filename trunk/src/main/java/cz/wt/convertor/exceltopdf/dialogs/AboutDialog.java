@@ -34,14 +34,14 @@ public class AboutDialog extends javax.swing.JDialog {
         javax.swing.JLabel imageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(cz.wt.convertor.exceltopdf.BaseApp.class).getContext().getResourceMap(AboutDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(cz.wt.convertor.exceltopdf.Main.class).getContext().getResourceMap(AboutDialog.class);
         setTitle(resourceMap.getString("title")); // NOI18N
         setMinimumSize(new java.awt.Dimension(100, 250));
         setModal(true);
         setName("aboutBox"); // NOI18N
         setResizable(false);
 
-        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(cz.wt.convertor.exceltopdf.BaseApp.class).getContext().getActionMap(AboutDialog.class, this);
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(cz.wt.convertor.exceltopdf.Main.class).getContext().getActionMap(AboutDialog.class, this);
         closeButton.setAction(actionMap.get("closeAboutBox")); // NOI18N
         closeButton.setName("closeButton"); // NOI18N
 

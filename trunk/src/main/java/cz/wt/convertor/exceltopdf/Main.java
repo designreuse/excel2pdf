@@ -11,7 +11,7 @@ import org.jdesktop.application.SingleFrameApplication;
 /**
  * The main class of the application.
  */
-public class BaseApp extends SingleFrameApplication {
+public class Main extends SingleFrameApplication {
 
     /**
      * At startup create and show the main frame of the application.
@@ -32,14 +32,14 @@ public class BaseApp extends SingleFrameApplication {
      * A convenient static getter for the application instance.
      * @return the instance of DesktopApplication1
      */
-    public static BaseApp getApplication() {
-        return Application.getInstance(BaseApp.class);
+    public static Main getApplication() {
+        return Application.getInstance(Main.class);
     }
 
     /**
      * Main method launching the application.
      */
     public static void main(String[] args) {
-        launch(BaseApp.class, args);
+        launch(Main.class, args);
     }
 }

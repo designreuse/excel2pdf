@@ -92,9 +92,9 @@ public class FileChooser extends JPanel {
         container.setName("container"); // NOI18N
         container.setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(cz.wt.convertor.exceltopdf.BaseApp.class).getContext().getActionMap(FileChooser.class, this);
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(cz.wt.convertor.exceltopdf.Main.class).getContext().getActionMap(FileChooser.class, this);
         jButtonOpen.setAction(actionMap.get("openFile")); // NOI18N
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(cz.wt.convertor.exceltopdf.BaseApp.class).getContext().getResourceMap(FileChooser.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(cz.wt.convertor.exceltopdf.Main.class).getContext().getResourceMap(FileChooser.class);
         jButtonOpen.setIcon(resourceMap.getIcon("jButtonOpen.icon")); // NOI18N
         jButtonOpen.setText(resourceMap.getString("jButtonOpen.text")); // NOI18N
         jButtonOpen.setToolTipText(resourceMap.getString("jButtonOpen.toolTipText")); // NOI18N
