@@ -4,7 +4,7 @@
  */
 package cz.wt.convertor.main.utils;
 
-import cz.wt.convertor.main.jassreports.datasource.DataSource;
+import cz.wt.convertor.main.jreports.datasource.DataSource;
 import cz.wt.convertor.main.poi.TableRowCellProcessor;
 import java.io.File;
 import java.io.IOException;
@@ -70,7 +70,6 @@ public class ProcessUtils {
         Logger.getLogger(ProcessUtils.class.getName()).log(Level.SEVERE, null, ex);
       }
     }
-//JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.", "Message");
     return null;
   }
 }
