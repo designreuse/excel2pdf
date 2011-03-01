@@ -9,6 +9,7 @@
   <name>Excel2Pdf</name>
   <properties>
     <project.build.sourceEncoding>windows-1250</project.build.sourceEncoding>
+    <mainClass>cz.wt.convertor.main.Main</mainClass>
     <src.main.java>src/main/java</src.main.java>
     <src.main.resources>src/main/resources</src.main.resources>
     <all.properties.file>**/*.properties</all.properties.file>
@@ -206,7 +207,7 @@
               </artifactSet>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>cz.wt.convertor.exceltopdf.Main</mainClass>
+                  <mainClass>${mainClass}</mainClass>
                 </transformer>
               </transformers>
               <shadedArtifactAttached>true</shadedArtifactAttached>

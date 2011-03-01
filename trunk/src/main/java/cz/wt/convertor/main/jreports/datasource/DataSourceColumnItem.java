@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.wt.convertor.main.jassreports.datasource;
+package cz.wt.convertor.main.jreports.datasource;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -63,16 +63,19 @@ public class DataSourceColumnItem implements Iterator<Object> {
         this.sheetName = sheetName;
     }
 
+    @Override
     public boolean hasNext() {
         return readedCounter < data.size();
     }
 
+    @Override
     public Object next() {
         Object object = data.get(readedCounter);
         readedCounter++;
         return object;
     }
 
+    @Override
     public void remove() {
         data.remove(data.get(readedCounter));
     }

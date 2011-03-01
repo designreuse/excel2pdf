@@ -1,6 +1,7 @@
 package cz.wt.convertor.main.utils;
 
 import java.awt.Component;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**

@@ -10,7 +10,7 @@
  */
 package cz.wt.convertor.main.gui;
 
-import cz.wt.convertor.main.jassreports.datasource.DataSource;
+import cz.wt.convertor.main.jreports.datasource.DataSource;
 import cz.wt.convertor.main.utils.FileUtils;
 import cz.wt.convertor.main.utils.MessagesUtils;
 import cz.wt.convertor.main.utils.ProcessUtils;
