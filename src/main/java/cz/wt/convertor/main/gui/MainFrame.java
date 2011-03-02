@@ -97,7 +97,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_about
 
     private void napoveda(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_napoveda
-        // TODO add your handling code here:
+        HelpFrame helpFrame = new HelpFrame();
+        helpFrame.setLocationRelativeTo(null);
+        helpFrame.setVisible(true);
     }//GEN-LAST:event_napoveda
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem helpMenuItem;

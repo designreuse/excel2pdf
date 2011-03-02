@@ -5,6 +5,7 @@
 package cz.wt.convertor.main.utils;
 
 import cz.wt.convertor.main.jreports.datasource.DataSource;
+import cz.wt.convertor.main.poi.DataReadingException;
 import cz.wt.convertor.main.poi.TableRowCellProcessor;
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +26,7 @@ import org.apache.commons.io.FileUtils;
  */
 public class ProcessUtils {
 
-  public static DataSource loadExcelFileToDataSource(File excelFile) {
+  public static DataSource loadExcelFileToDataSource(File excelFile) throws DataReadingException {
     if (excelFile != null) {
       TableRowCellProcessor rowCellProcessor = new TableRowCellProcessor();
       DataSource dataSource = rowCellProcessor.processExcelFile(excelFile);
@@ -34,20 +35,21 @@ public class ProcessUtils {
     return null;
   }
 
-  public static void printJRDataSource(DataSource dataSource, File jasperTemplate) {
+  public static void printJRDataSource(DataSource dataSource, File jasperTemplate) throws JRException {
     if (jasperTemplate != null) {
       JasperReport jr;
-      try {
+      try {      
         jr = JasperCompileManager.compileReport(jasperTemplate.getPath());
         JasperPrint jp = JasperFillManager.fillReport(jr, dataSource.getMapOfParams(), dataSource);
         JasperPrintManager.printReport(jp, true);
       } catch (JRException ex) {
-        Logger.getLogger(ProcessUtils.class.getName()).log(Level.SEVERE, null, ex);
+        MessagesUtils.showError(null, "Došlo k problémùm pøi pokusu o tisk sestavy.");
+        throw new JRException("Došlo k problémùm pøi pokusu o tisk sestavy.", ex);
       }
     }
   }
 
-  public static byte[] transformJRDataSourceToPDF(DataSource dataSource, File jasperTemplate) {
+  public static byte[] transformJRDataSourceToPDF(DataSource dataSource, File jasperTemplate) throws JRException {
     if (jasperTemplate != null) {
       JasperReport jr;
       try {
@@ -55,7 +57,8 @@ public class ProcessUtils {
         JasperPrint jp = JasperFillManager.fillReport(jr, dataSource.getMapOfParams(), dataSource);
         return JasperExportManager.exportReportToPdf(jp);
       } catch (JRException ex) {
-        Logger.getLogger(ProcessUtils.class.getName()).log(Level.SEVERE, null, ex);
+        MessagesUtils.showError(null, "Došlo k problémùm pøi pokusu o transformaci do PDF.");
+        throw new JRException("Došlo k problémùm pøi pokusu o transformaci do PDF.", ex);
       }
     }
     return null;
@@ -67,7 +70,8 @@ public class ProcessUtils {
         FileUtils.writeByteArrayToFile(savedFile, byteArray);
         return savedFile;
       } catch (IOException ex) {
-        Logger.getLogger(ProcessUtils.class.getName()).log(Level.SEVERE, null, ex);
+        MessagesUtils.showError(null, "Došlo k problémùm pøi ukládání souboru.");
+        Logger.getLogger(ProcessUtils.class.getName()).log(Level.SEVERE, "Došlo k problémùm pøi ukládání souboru.", ex);
       }
     }
     return null;

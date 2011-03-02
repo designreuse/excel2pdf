@@ -7,7 +7,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * Hello world!
+ * Main class
  *
  */
 public class Main {
@@ -17,7 +17,17 @@ public class Main {
    */
   public static void main(String args[]) {
     try {
+      
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+      java.awt.EventQueue.invokeLater(new Runnable() {
+
+        @Override
+        public void run() {
+          MainFrame mainFrame = new MainFrame();
+          mainFrame.setVisible(true);
+        }
+      });
+
     } catch (ClassNotFoundException ex) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
@@ -27,13 +37,5 @@ public class Main {
     } catch (UnsupportedLookAndFeelException ex) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
-
-    java.awt.EventQueue.invokeLater(new Runnable() {
-
-      public void run() {
-        MainFrame mainFrame = new MainFrame();
-        mainFrame.setVisible(true);
-      }
-    });
   }
 }

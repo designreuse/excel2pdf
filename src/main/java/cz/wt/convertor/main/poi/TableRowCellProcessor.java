@@ -20,100 +20,114 @@ import org.apache.poi.ss.usermodel.Row;
  */
 public class TableRowCellProcessor {
 
-    private SimpleDateFormat dateformat = new SimpleDateFormat("d.M.yyyy");
+  private SimpleDateFormat dateformat = new SimpleDateFormat("d.M.yyyy");
 
-    public DataSource processExcelFile(File excelFile) {
-        HSSFWorkbook workbook = ExcelUtils.getWorkbookXls(excelFile);
-        DataSource dataSource = processWokrbook(workbook);
-        return dataSource;
+  public DataSource processExcelFile(File excelFile) throws DataReadingException {
+    DataSource dataSource = null;
+    try {
+
+      HSSFWorkbook workbook = ExcelUtils.getWorkbookXls(excelFile);
+      dataSource = processWokrbook(workbook);
+      
+    } catch (DataReadingException dataReadingException) {
+      MessagesUtils.showWarning(null, dataReadingException.getMessage());
+      throw dataReadingException;
+    }
+    return dataSource;
+  }
+
+  protected DataSource processWokrbook(HSSFWorkbook workbook) throws DataReadingException {
+    DataSource dataSource = new DataSource();
+
+    for (int k = 0; k < workbook.getNumberOfSheets(); k++) {
+      HSSFSheet sheet = workbook.getSheetAt(k);
+      processSheet(sheet, dataSource);
     }
 
-    protected DataSource processWokrbook(HSSFWorkbook workbook) {
-        DataSource dataSource = new DataSource();
-
-        for (int k = 0; k < workbook.getNumberOfSheets(); k++) {
-            HSSFSheet sheet = workbook.getSheetAt(k);
-            processSheet(sheet, dataSource);
-        }
-
-        dataSource.findParam();
-        if (workbook.getSheetAt(1) != null) {
-            dataSource.setItemCounter(workbook.getSheetAt(1).getPhysicalNumberOfRows());
-        }
-
-        return dataSource;
+    dataSource.findParam();
+    if (workbook.getSheetAt(1) != null) {
+      dataSource.setItemCounter(workbook.getSheetAt(1).getPhysicalNumberOfRows());
     }
 
-    protected void processSheet(HSSFSheet sheet, DataSource dataSource) {
-        boolean firstRow = true;
+    return dataSource;
+  }
 
-        for (Iterator<Row> rowIt = sheet.rowIterator(); rowIt.hasNext();) {
+  protected void processSheet(HSSFSheet sheet, DataSource dataSource) throws DataReadingException {
+    boolean firstRow = true;
 
-            Row row = rowIt.next();
+    for (Iterator<Row> rowIt = sheet.rowIterator(); rowIt.hasNext();) {
 
-            // prazdny radek preskocim
-            if (row == null) {
-                continue;
-            }
+      Row row = rowIt.next();
 
-            // zpracuji header
-            if (firstRow) {
-                processHeaderOfSheet(row, dataSource);
-                firstRow = false;
-                continue;
-            }
+      // prazdny radek preskocim
+      if (row == null) {
+        continue;
+      }
 
-            Object value = null;
+      // zpracuji header
+      if (firstRow) {
+        processHeaderOfSheet(row, dataSource);
+        firstRow = false;
+        continue;
+      }
 
-            for (Iterator<Cell> celIt = row.iterator(); celIt.hasNext();) {
-                Cell cell = celIt.next();
+      Object value = null;
 
-                // prazdnou bunku preskocim
-                if (cell == null) {
-                    continue;
-                }
+      for (Iterator<Cell> celIt = row.iterator(); celIt.hasNext();) {
+        Cell cell = celIt.next();
 
-                switch (cell.getCellType()) {
-                    case HSSFCell.CELL_TYPE_NUMERIC:
-                        // je cislo datem?
-                        if (DateUtil.isCellDateFormatted(cell)) {
-                            value = dateformat.format(cell.getDateCellValue());
-                        } else {
-                            value = (Double.valueOf(cell.getNumericCellValue())).intValue();
-                        }
-                        break;
-
-                    case HSSFCell.CELL_TYPE_STRING:
-                        value = cell.getStringCellValue();
-                        break;
-
-                    case HSSFCell.CELL_TYPE_BLANK:
-                        break;
-
-                    default:
-                        MessagesUtils.showWarning(null, "Bunka je špatného typu. " + cell.getCellType());
-                }
-
-                if (value != null) {
-                    dataSource.addData(value, cell.getColumnIndex(), cell.getSheet().getSheetName());
-                }
-            }
+        // prazdnou bunku preskocim
+        if (cell == null) {
+          continue;
         }
-    }
 
-    private void processHeaderOfSheet(Row row, DataSource dataSource) {
-        for (Iterator<Cell> celIt = row.iterator(); celIt.hasNext();) {
-            Cell cell = celIt.next();
-
-            if (cell == null) {
-                MessagesUtils.showWarning(null, "Mezi sloupci v headeru tabulky nesmí být prázdné místo!.");
+        switch (cell.getCellType()) {
+          case HSSFCell.CELL_TYPE_NUMERIC:
+            // je cislo datem?
+            if (DateUtil.isCellDateFormatted(cell)) {
+              value = dateformat.format(cell.getDateCellValue());
+            } else {
+              value = (Double.valueOf(cell.getNumericCellValue())).intValue();
             }
+            break;
 
-            if (cell.getCellType() != HSSFCell.CELL_TYPE_STRING) {
-                MessagesUtils.showWarning(null, "Jedna z bunek v headeru tabulky neni textoveho formátu. " + ExcelUtils.getStringFromCell(cell));
-            }
+          case HSSFCell.CELL_TYPE_STRING:
+            value = cell.getStringCellValue();
+            break;
 
-            dataSource.createHeader(cell.getStringCellValue(), cell.getColumnIndex(), cell.getSheet().getSheetName());
+          case HSSFCell.CELL_TYPE_BLANK:
+            break;
+
+          default:
+            throw new DataReadingException("Buòka je špatného typu. " + getInfoOfCell(cell) + ", Type:" + cell.
+                getCellType());
         }
+
+        if (value != null) {
+          dataSource.addData(value, cell.getColumnIndex(), cell.getSheet().getSheetName());
+        }
+      }
     }
+  }
+
+  protected void processHeaderOfSheet(Row row, DataSource dataSource) throws DataReadingException {
+    for (Iterator<Cell> celIt = row.iterator(); celIt.hasNext();) {
+      Cell cell = celIt.next();
+
+      if (cell == null) {
+        throw new DataReadingException("Mezi sloupci v headeru tabulky nesmí být prázdné místo!." + getInfoOfCell(cell));
+      }
+
+      if (cell.getCellType() != HSSFCell.CELL_TYPE_STRING) {
+        throw new DataReadingException("Jedna z bunìk v headeru tabulky není textového formátu." + getInfoOfCell(cell));
+      }
+
+      dataSource.createHeader(cell.getStringCellValue(), cell.getColumnIndex(), cell.getSheet().getSheetName());
+    }
+  }
+
+  private String getInfoOfCell(Cell cell) {
+    return " Pozice (sloupec: " + cell.getColumnIndex() + ", øádek: " + cell.getRowIndex() + ")" + ", Hodnota: " + ExcelUtils.
+        getStringFromCell(cell);
+  }
 }
