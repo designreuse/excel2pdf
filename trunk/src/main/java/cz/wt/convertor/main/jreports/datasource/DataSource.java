@@ -34,7 +34,6 @@ public class DataSource implements JRDataSource {
         for (DataSourceColumnItem dataSourceColumnItems : dataSourceItems) {
             if (dataSourceColumnItems.getColumnIndex() == columnIndex
                     && dataSourceColumnItems.getSheetName().equals(sheetName)) {
-                System.out.println("ADD DATA " + columnIndex + ", " + data);
                 dataSourceColumnItems.addData(data);
             }
         }
