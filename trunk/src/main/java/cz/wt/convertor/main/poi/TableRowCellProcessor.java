@@ -45,8 +45,9 @@ public class TableRowCellProcessor {
     }
 
     dataSource.findParam();
-    if (workbook.getSheetAt(1) != null) {
-      dataSource.setItemCounter(workbook.getSheetAt(1).getPhysicalNumberOfRows());
+    if (workbook.getSheetAt(0) != null) {
+      // -1 ptz se pocita u header
+      dataSource.setItemCounter(workbook.getSheetAt(0).getPhysicalNumberOfRows()-1);
     }
 
     return dataSource;
@@ -78,6 +79,7 @@ public class TableRowCellProcessor {
 
         // prazdnou bunku preskocim
         if (cell == null) {
+          System.out.println("prazdna");
           continue;
         }
 
