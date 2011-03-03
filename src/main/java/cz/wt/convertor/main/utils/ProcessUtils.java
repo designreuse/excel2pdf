@@ -4,13 +4,14 @@
  */
 package cz.wt.convertor.main.utils;
 
+import cz.wt.convertor.main.LoggerFactory;
+import cz.wt.convertor.main.LoggerHandler;
 import cz.wt.convertor.main.jreports.datasource.DataSource;
 import cz.wt.convertor.main.poi.DataReadingException;
 import cz.wt.convertor.main.poi.TableRowCellProcessor;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -26,6 +27,8 @@ import org.apache.commons.io.FileUtils;
  */
 public class ProcessUtils {
 
+  private static final LoggerHandler LOG = LoggerFactory.getLogger(ProcessUtils.class);
+
   public static DataSource loadExcelFileToDataSource(File excelFile) throws DataReadingException {
     if (excelFile != null) {
       TableRowCellProcessor rowCellProcessor = new TableRowCellProcessor();
@@ -38,7 +41,7 @@ public class ProcessUtils {
   public static void printJRDataSource(DataSource dataSource, File jasperTemplate) throws JRException {
     if (jasperTemplate != null) {
       JasperReport jr;
-      try {      
+      try {
         jr = JasperCompileManager.compileReport(jasperTemplate.getPath());
         JasperPrint jp = JasperFillManager.fillReport(jr, dataSource.getMapOfParams(), dataSource);
         JasperPrintManager.printReport(jp, true);
@@ -71,7 +74,7 @@ public class ProcessUtils {
         return savedFile;
       } catch (IOException ex) {
         MessagesUtils.showError(null, "Došlo k problémùm pøi ukládání souboru.");
-        Logger.getLogger(ProcessUtils.class.getName()).log(Level.SEVERE, "Došlo k problémùm pøi ukládání souboru.", ex);
+        LOG.log(Level.SEVERE, "Došlo k problémùm pøi ukládání souboru.", ex);
       }
     }
     return null;

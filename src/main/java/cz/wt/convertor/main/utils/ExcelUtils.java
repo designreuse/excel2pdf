@@ -1,5 +1,7 @@
 package cz.wt.convertor.main.utils;
 
+import cz.wt.convertor.main.LoggerFactory;
+import cz.wt.convertor.main.LoggerHandler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -23,6 +24,8 @@ import org.apache.poi.ss.usermodel.Workbook;
  */
 public class ExcelUtils {
 
+  private static final LoggerHandler LOG = LoggerFactory.getLogger(ExcelUtils.class);
+
   public static Workbook getWorkbook(File excelSoubor) {
     try {
       if (excelSoubor.getName().endsWith(".xls")) {
@@ -32,8 +35,7 @@ public class ExcelUtils {
 //        return getWorkbookXlsx(new FileInputStream(excelSoubor));
 //      }
     } catch (IOException ex) {
-      Logger.getLogger(ExcelUtils.class.getName()).log(Level.SEVERE, null, ex);
-      //LOGGER.error("Nacitani Workbooku z excel souboru se napodarilo.", ex);
+      LOG.log(Level.SEVERE, null, ex);
     }
     return null;
   }
@@ -44,7 +46,7 @@ public class ExcelUtils {
         return new HSSFWorkbook(new FileInputStream(excelSoubor));
       }
     } catch (IOException ex) {
-      Logger.getLogger(ExcelUtils.class.getName()).log(Level.SEVERE, null, ex);
+      LOG.log(Level.SEVERE, null, ex);
     }
     return null;
   }
@@ -55,7 +57,7 @@ public class ExcelUtils {
         return new HSSFWorkbook(excelInputStream);
       }
     } catch (IOException ex) {
-      Logger.getLogger(ExcelUtils.class.getName()).log(Level.SEVERE, null, ex);
+      LOG.log(Level.SEVERE, null, ex);
     }
     return null;
   }

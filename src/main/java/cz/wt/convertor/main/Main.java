@@ -2,7 +2,6 @@ package cz.wt.convertor.main;
 
 import cz.wt.convertor.main.gui.MainFrame;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -12,30 +11,39 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Main {
 
+  private static final LoggerHandler LOG = LoggerFactory.getLogger(Main.class);
+
   /**
    * @param args the command line arguments
    */
   public static void main(String args[]) {
     try {
-      
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       java.awt.EventQueue.invokeLater(new Runnable() {
 
         @Override
         public void run() {
-          MainFrame mainFrame = new MainFrame();
-          mainFrame.setVisible(true);
+          try {
+            MainFrame mainFrame = new MainFrame();
+            mainFrame.setVisible(true);
+          } catch (Exception ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            System.exit(1);
+          }
         }
       });
 
     } catch (ClassNotFoundException ex) {
-      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+      LOG.log(Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
-      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+      LOG.log(Level.SEVERE, null, ex);
     } catch (IllegalAccessException ex) {
-      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+      LOG.log(Level.SEVERE, null, ex);
     } catch (UnsupportedLookAndFeelException ex) {
-      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+      LOG.log(Level.SEVERE, null, ex);
+    } catch (RuntimeException ex) {
+      LOG.log(Level.SEVERE, null, ex);
+      System.exit(1);
     }
   }
 }

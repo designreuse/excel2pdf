@@ -123,7 +123,7 @@ public class FileUtils {
 
             // overwrite ?
             if (saveFileExtension.exists()) {
-                int option = MessagesUtils.showOptionDialog(null, "Soubor existuje má se pøepsat?");
+                int option = MessagesUtils.showOptionDialog(controller, "Soubor existuje má se pøepsat?");
                 if (option == JOptionPane.NO_OPTION) {
                     return FileUtils.saveFile(controller, fileName, extensionSave, extensionsDescrSave);
                 }

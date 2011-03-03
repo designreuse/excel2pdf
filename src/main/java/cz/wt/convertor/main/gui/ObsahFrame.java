@@ -10,6 +10,8 @@
  */
 package cz.wt.convertor.main.gui;
 
+import cz.wt.convertor.main.LoggerFactory;
+import cz.wt.convertor.main.LoggerHandler;
 import cz.wt.convertor.main.jreports.datasource.DataSource;
 import cz.wt.convertor.main.poi.DataReadingException;
 import cz.wt.convertor.main.utils.FileUtils;
@@ -18,7 +20,6 @@ import cz.wt.convertor.main.utils.ProcessUtils;
 import java.beans.Beans;
 import java.io.File;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JPanel;
 import net.sf.jasperreports.engine.JRException;
 
@@ -27,6 +28,8 @@ import net.sf.jasperreports.engine.JRException;
  * @author forrest
  */
 public class ObsahFrame extends JPanel {
+
+  private static final LoggerHandler LOG = LoggerFactory.getLogger(ObsahFrame.class);
 
   private static final long serialVersionUID = 1L;
 
@@ -171,9 +174,9 @@ public class ObsahFrame extends JPanel {
       }
 
     } catch (JRException ex) {
-      Logger.getLogger(ObsahFrame.class.getName()).log(Level.WARNING, null, ex);
+      LOG.log(Level.WARNING, null, ex);
     } catch (DataReadingException ex) {
-      Logger.getLogger(ObsahFrame.class.getName()).log(Level.WARNING, null, ex);
+      LOG.log(Level.WARNING, null, ex);
     }
   }//GEN-LAST:event_jButtonPdfActionPerformed
 
@@ -190,9 +193,9 @@ public class ObsahFrame extends JPanel {
       ProcessUtils.printJRDataSource(dataSource, template);
 
     } catch (JRException ex) {
-      Logger.getLogger(ObsahFrame.class.getName()).log(Level.WARNING, null, ex);
+      LOG.log(Level.WARNING, null, ex);
     } catch (DataReadingException ex) {
-      Logger.getLogger(ObsahFrame.class.getName()).log(Level.WARNING, null, ex);
+      LOG.log(Level.WARNING, null, ex);
     }
   }//GEN-LAST:event_jButtonTiskActionPerformed
   // Variables declaration - do not modify//GEN-BEGIN:variables

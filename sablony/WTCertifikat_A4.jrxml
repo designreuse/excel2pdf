@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test1" pageWidth="595" pageHeight="842" columnWidth="591" leftMargin="2" rightMargin="2" topMargin="2" bottomMargin="2">
-	<property name="ireport.zoom" value="0.826446280991737"/>
+	<property name="ireport.zoom" value="1.2100000000000024"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="93"/>
+	<property name="ireport.y" value="429"/>
 	<style name="table">
 		<box>
 			<topPen lineWidth="1.0" lineColor="#FFFFFF"/>
@@ -54,11 +54,11 @@
 	<parameter name="sefinstruktor" class="java.lang.String"/>
 	<field name="jmeno" class="java.lang.String"/>
 	<field name="prijmeni" class="java.lang.String"/>
-	<field name="stupen" class="java.lang.String"/>
+	<field name="stupen" class="java.lang.Integer"/>
 	<detail>
 		<band height="838" splitType="Prevent">
 			<textField isStretchWithOverflow="true" evaluationTime="Band">
-				<reportElement positionType="Float" x="179" y="228" width="241" height="25" isPrintWhenDetailOverflows="true"/>
+				<reportElement positionType="Float" x="161" y="228" width="277" height="25" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Center">
 					<font size="18" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
 				</textElement>
@@ -72,11 +72,22 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{datum}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement x="250" y="293" width="98" height="26"/>
+				<reportElement x="179" y="293" width="241" height="26"/>
 				<textElement textAlignment="Center">
 					<font size="18" pdfEncoding="Cp1250"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{stupen}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{stupen}.intValue()== 1 ? new String("1.(prvá)") :
+$F{stupen}.intValue()== 2 ? new String("2.(druhá)") :
+$F{stupen}.intValue()== 3 ? new String("3.(třetí)") :
+$F{stupen}.intValue()== 4 ? new String("4.(čtvrtá)") :
+$F{stupen}.intValue()== 5 ? new String("5.(pátá)") :
+$F{stupen}.intValue()== 6 ? new String("6.(šestá)") :
+$F{stupen}.intValue()== 7 ? new String("7.(sedmá)") :
+$F{stupen}.intValue()== 8 ? new String("8.(osmá)") :
+$F{stupen}.intValue()== 9 ? new String("9.(devátá)") :
+$F{stupen}.intValue()== 10 ? new String("10.(desátá)") :
+$F{stupen}.intValue()== 11 ? new String("11.(jedenáctá)") :
+$F{stupen}.intValue()== 12 ? new String("12.(dvanáctá)") : new String("Neznámé označení!")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement x="34" y="486" width="69" height="19"/>
@@ -86,14 +97,14 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{misto}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="34" y="566" width="85" height="19"/>
+				<reportElement x="34" y="566" width="189" height="19"/>
 				<textElement>
 					<font size="12" pdfEncoding="Cp1250"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{zkousejici}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="34" y="639" width="95" height="18"/>
+				<reportElement x="34" y="639" width="189" height="18"/>
 				<textElement>
 					<font size="12" pdfEncoding="Cp1250"/>
 				</textElement>
