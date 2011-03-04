@@ -4,14 +4,11 @@
  */
 package cz.wt.convertor.main.utils;
 
-import cz.wt.convertor.main.LoggerFactory;
-import cz.wt.convertor.main.LoggerHandler;
 import cz.wt.convertor.main.jreports.datasource.DataSource;
 import cz.wt.convertor.main.poi.DataReadingException;
 import cz.wt.convertor.main.poi.TableRowCellProcessor;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -20,6 +17,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -27,7 +26,7 @@ import org.apache.commons.io.FileUtils;
  */
 public class ProcessUtils {
 
-  private static final LoggerHandler LOG = LoggerFactory.getLogger(ProcessUtils.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ProcessUtils.class);
 
   public static DataSource loadExcelFileToDataSource(File excelFile) throws DataReadingException {
     if (excelFile != null) {
@@ -74,7 +73,7 @@ public class ProcessUtils {
         return savedFile;
       } catch (IOException ex) {
         MessagesUtils.showError(null, "Došlo k problémùm pøi ukládání souboru.");
-        LOG.log(Level.SEVERE, "Došlo k problémùm pøi ukládání souboru.", ex);
+        LOGGER.error("Došlo k problémùm pøi ukládání souboru.", ex);
       }
     }
     return null;

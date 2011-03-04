@@ -1,7 +1,5 @@
 package cz.wt.convertor.main.utils;
 
-import cz.wt.convertor.main.LoggerFactory;
-import cz.wt.convertor.main.LoggerHandler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,13 +7,14 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utility pro praci s excel souborem
@@ -24,7 +23,7 @@ import org.apache.poi.ss.usermodel.Workbook;
  */
 public class ExcelUtils {
 
-  private static final LoggerHandler LOG = LoggerFactory.getLogger(ExcelUtils.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ExcelUtils.class);
 
   public static Workbook getWorkbook(File excelSoubor) {
     try {
@@ -35,7 +34,7 @@ public class ExcelUtils {
 //        return getWorkbookXlsx(new FileInputStream(excelSoubor));
 //      }
     } catch (IOException ex) {
-      LOG.log(Level.SEVERE, null, ex);
+      LOGGER.error("getWorkbook", ex);
     }
     return null;
   }
@@ -46,7 +45,7 @@ public class ExcelUtils {
         return new HSSFWorkbook(new FileInputStream(excelSoubor));
       }
     } catch (IOException ex) {
-      LOG.log(Level.SEVERE, null, ex);
+      LOGGER.error("getWorkbookXls", ex);
     }
     return null;
   }
@@ -57,7 +56,7 @@ public class ExcelUtils {
         return new HSSFWorkbook(excelInputStream);
       }
     } catch (IOException ex) {
-      LOG.log(Level.SEVERE, null, ex);
+      LOGGER.error("getWorkbookXls", ex);
     }
     return null;
   }
