@@ -10,8 +10,6 @@
  */
 package cz.wt.convertor.main.gui;
 
-import cz.wt.convertor.main.LoggerFactory;
-import cz.wt.convertor.main.LoggerHandler;
 import cz.wt.convertor.main.jreports.datasource.DataSource;
 import cz.wt.convertor.main.poi.DataReadingException;
 import cz.wt.convertor.main.utils.FileUtils;
@@ -19,9 +17,10 @@ import cz.wt.convertor.main.utils.MessagesUtils;
 import cz.wt.convertor.main.utils.ProcessUtils;
 import java.beans.Beans;
 import java.io.File;
-import java.util.logging.Level;
 import javax.swing.JPanel;
 import net.sf.jasperreports.engine.JRException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -29,7 +28,7 @@ import net.sf.jasperreports.engine.JRException;
  */
 public class ObsahFrame extends JPanel {
 
-  private static final LoggerHandler LOG = LoggerFactory.getLogger(ObsahFrame.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ObsahFrame.class);
 
   private static final long serialVersionUID = 1L;
 
@@ -174,29 +173,30 @@ public class ObsahFrame extends JPanel {
       }
 
     } catch (JRException ex) {
-      LOG.log(Level.WARNING, null, ex);
+      LOGGER.error("Tlacitko PDF", ex);
     } catch (DataReadingException ex) {
-      LOG.log(Level.WARNING, null, ex);
+      LOGGER.error("Tlacitko PDF", ex);
     }
   }//GEN-LAST:event_jButtonPdfActionPerformed
 
   private void jButtonTiskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTiskActionPerformed
-    try {
-
-      File excel = fileChooserExcel.getFile();
-      File template = fileChooserTemplate.getFile();
-
-      if (!jsouVybraneSoubory(excel, template)) {
-        return;
-      }
-      DataSource dataSource = ProcessUtils.loadExcelFileToDataSource(excel);
-      ProcessUtils.printJRDataSource(dataSource, template);
-
-    } catch (JRException ex) {
-      LOG.log(Level.WARNING, null, ex);
-    } catch (DataReadingException ex) {
-      LOG.log(Level.WARNING, null, ex);
-    }
+    throw new RuntimeException("test");
+    //    try {
+//
+//      File excel = fileChooserExcel.getFile();
+//      File template = fileChooserTemplate.getFile();
+//
+//      if (!jsouVybraneSoubory(excel, template)) {
+//        return;
+//      }
+//      DataSource dataSource = ProcessUtils.loadExcelFileToDataSource(excel);
+//      ProcessUtils.printJRDataSource(dataSource, template);
+//
+//    } catch (JRException ex) {
+//      LOGGER.error("Tlacitko Tisk", ex);
+//    } catch (DataReadingException ex) {
+//      LOGGER.error("Tlacitko Tisk", ex);
+//    }
   }//GEN-LAST:event_jButtonTiskActionPerformed
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private cz.wt.convertor.main.gui.bean.FileChooser fileChooserExcel;

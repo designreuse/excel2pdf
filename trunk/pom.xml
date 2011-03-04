@@ -12,6 +12,7 @@
     <mainClass>cz.wt.convertor.main.Main</mainClass>
     <src.main.java>src/main/java</src.main.java>
     <src.main.resources>src/main/resources</src.main.resources>
+    <src.main.config>src/main/config</src.main.config>
     <all.properties.file>**/*.properties</all.properties.file>
     <all.dir.subdir.files>**/*.*</all.dir.subdir.files>
   </properties>
@@ -165,6 +166,33 @@
       <artifactId>swing-layout</artifactId>
       <version>1.0.3</version>
     </dependency>
+
+    <!-- logging-->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>0.9.28</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>0.9.28</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+<!--    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.6.1</version>
+    </dependency>-->
   </dependencies>
 
   <build>
@@ -253,6 +281,12 @@
       </resource>
       <resource>
         <directory>${src.main.resources}</directory>
+        <includes>
+          <include>${all.dir.subdir.files}</include>
+        </includes>
+      </resource>
+       <resource>
+        <directory>${src.main.config}</directory>
         <includes>
           <include>${all.dir.subdir.files}</include>
         </includes>
