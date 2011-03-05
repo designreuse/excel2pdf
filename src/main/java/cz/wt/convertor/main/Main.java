@@ -52,7 +52,6 @@ public class Main {
       LOGGER.error("UIManager", ex);
     } catch (RuntimeException ex) {
       LOGGER.error("UIManager", ex);
-      System.exit(1);
     }
   }
 }

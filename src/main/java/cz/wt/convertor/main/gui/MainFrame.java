@@ -10,7 +10,6 @@
  */
 package cz.wt.convertor.main.gui;
 
-import cz.wt.convertor.main.Main;
 import javax.swing.ImageIcon;
 import org.slf4j.Logger;
 
@@ -29,7 +28,6 @@ public class MainFrame extends javax.swing.JFrame {
     setLocationRelativeTo(null);
     ImageIcon imageIcon = new javax.swing.ImageIcon(getClass().getResource("/icons/excel.png"));
     setIconImage(imageIcon.getImage());
-    LOGGER.error("uaaa");
   }
 
   /** This method is called from within the constructor to

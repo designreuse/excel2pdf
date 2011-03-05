@@ -14,7 +14,7 @@
   </appender>
   
   <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-    <file>test.log</file>
+    <file>excel2pdf.log</file>
     <Append>false</Append>
     <layout class="ch.qos.logback.classic.PatternLayout">
       <Pattern>[%date{dd-MM-yyyy HH:mm:ss.SSS}] [%thread] [%5level] [%logger\(%method\):%line] - %msg%n</Pattern>
