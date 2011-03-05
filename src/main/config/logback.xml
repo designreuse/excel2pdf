@@ -35,40 +35,6 @@
     <appender-ref ref="FILE" />
   </root>
   
-  <logger name="cz.oksystem.centrum.planovac">
-    <level value="trace"/>
-    <appender-ref ref="FILE_PLANOVAC" />
-  </logger>
-  
-   <logger name="cz.oksystem.lib.frex.hibernate.statistics" level="WARN" />
-   
-   <logger name="org.springframework.transaction.interceptor.TransactionAspectSupport" level="warn" />
-
-
-  <logger name=" cz.oksystem.lib.frex.spring.util.LoggingPropertyPlaceholderConfigurer">
-    <level value="warn"/>
-  </logger>
-  <logger name="org.hibernate">
-    <level value="warn"/>
-  </logger>
-  <logger name="cz.oksystem.centrum.core">
-    <level value="warn"/>
-  </logger>
-  <logger name="net.sf.ehcache">
-    <level value="warn"/>
-  </logger>
-  <logger name="org.springframework">
-    <level value="warn"/>
-  </logger>
-  <logger name="cz.oksystem.lib.validation">
-    <level value="warn"/>
-  </logger>
-  <logger name="cz.oksystem.lib.i18n">
-    <level value="warn"/>
-  </logger>
-  <logger name="cz.oksystem.rcp">
-    <level value="warn"/>
-  </logger>
 
   <logger name="org.hibernate.SQL">
     <level value="warn"/>
