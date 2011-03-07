@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test1" pageWidth="421" pageHeight="595" columnWidth="417" leftMargin="2" rightMargin="2" topMargin="2" bottomMargin="2">
+	<property name="ireport.zoom" value="1.6105100000000019"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="432"/>
+	<import value="java.lang.*"/>
+	<import value="java.util.*"/>
+	<style name="style1" mode="Opaque" backcolor="#00FFFF" pdfEncoding="Cp1250">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{stupen}.intValue()== 1]]></conditionExpression>
+			<style pdfEncoding="Cp1250"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="datum" class="java.lang.String"/>
+	<parameter name="misto" class="java.lang.String"/>
+	<parameter name="zkousejici" class="java.lang.String"/>
+	<parameter name="sefinstruktor" class="java.lang.String"/>
+	<field name="jmeno" class="java.lang.String"/>
+	<field name="prijmeni" class="java.lang.String"/>
+	<field name="stupen" class="java.lang.Integer"/>
+	<field name="stupenStr" class="java.lang.String"/>
+	<detail>
+		<band height="591" splitType="Prevent">
+			<textField isStretchWithOverflow="true" evaluationTime="Band">
+				<reportElement positionType="Float" x="91" y="152" width="238" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font size="14" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{jmeno} + " " + $F{prijmeni}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="26" y="362" width="49" height="13"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{datum}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement mode="Opaque" x="116" y="201" width="189" height="20" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font size="14" pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{stupen}.intValue()== 1 ? new String("1.(prvá)") :
+$F{stupen}.intValue()== 2 ? new String("2.(druhá)") :
+$F{stupen}.intValue()== 3 ? new String("3.(třetí)") :
+$F{stupen}.intValue()== 4 ? new String("4.(čtvrtá)") :
+$F{stupen}.intValue()== 5 ? new String("5.(pátá)") :
+$F{stupen}.intValue()== 6 ? new String("6.(šestá)") :
+$F{stupen}.intValue()== 7 ? new String("7.(sedmá)") :
+$F{stupen}.intValue()== 8 ? new String("8.(osmá)") :
+$F{stupen}.intValue()== 9 ? new String("9.(devátá)") :
+$F{stupen}.intValue()== 10 ? new String("10.(desátá)") :
+$F{stupen}.intValue()== 11 ? new String("11.(jedenáctá)") :
+$F{stupen}.intValue()== 12 ? new String("12.(dvanáctá)") : new String("Neznámé označení!")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="26" y="339" width="49" height="14"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{misto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="26" y="395" width="148" height="14"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{zkousejici}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="26" y="450" width="148" height="13"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{sefinstruktor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
