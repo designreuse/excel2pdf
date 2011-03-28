@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
-  <jmxConfigurator /> 
+  <jmxConfigurator />
 	
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
       <level>ERROR</level>
     </filter>
-    <layout class="ch.qos.logback.classic.PatternLayout">      
+    <layout class="ch.qos.logback.classic.PatternLayout">
       <pattern>[%date{dd-MM-yyyy HH:mm:ss.SSS}] [%thread] [%5level] [%logger\(%method\):%line] - %msg%n</pattern>
     </layout>
     <target>System.out</target>
@@ -17,11 +17,12 @@
     <file>excel2pdf.log</file>
     <Append>false</Append>
     <layout class="ch.qos.logback.classic.PatternLayout">
-      <Pattern>[%date{dd-MM-yyyy HH:mm:ss.SSS}] [%thread] [%5level] [%logger\(%method\):%line] - %msg%n</Pattern>
+      <Pattern>%date %level [%26file : %4line] %msg%n</Pattern>
+<!--      <Pattern>[%date{dd-MM-yyyy HH:mm:ss.SSS}] [%thread] [%5level] [%logger\(%method\):%line] - %msg%n</Pattern>-->
     </layout>
   </appender>
   
-   <appender name="FILE_PLANOVAC" class="ch.qos.logback.core.FileAppender">
+  <appender name="FILE_PLANOVAC" class="ch.qos.logback.core.FileAppender">
     <file>P:/logging/log/test-planovac.log</file>
     <append>false</append>
     <layout class="ch.qos.logback.classic.PatternLayout">
@@ -38,6 +39,10 @@
 
   <logger name="org.hibernate.SQL">
     <level value="warn"/>
+  </logger>
+
+  <logger name="cz.wt.convertor">
+    <level value="debug"/>
   </logger>
 
 </configuration>
