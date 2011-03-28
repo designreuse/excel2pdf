@@ -12,12 +12,16 @@ import java.util.Map;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author forrest
  */
 public class DataSource implements JRDataSource {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(DataSource.class);
 
   private static final String PARAM_NAME = "parametr-jmeno";
 
@@ -36,15 +40,18 @@ public class DataSource implements JRDataSource {
   }
 
   public void addData(Object data, Integer columnIndex, String sheetName) {
+    LOGGER.trace("addData: " + data + ", column index: " + columnIndex + ", sheet name: " + sheetName);
     for (DataSourceColumnItem dataSourceColumnItems : dataSourceItems) {
       if (dataSourceColumnItems.getColumnIndex() == columnIndex
           && dataSourceColumnItems.getSheetName().equals(sheetName)) {
+        LOGGER.debug("added: " + data + ", column index: " + columnIndex + ", sheet name: " + sheetName);
         dataSourceColumnItems.addData(data);
       }
     }
   }
 
   public void findParam() {
+    LOGGER.trace("find params");
     DataSourceColumnItem dataSourceColumnItemParamName = null;
     DataSourceColumnItem dataSourceColumnItemParamValue = null;
 
@@ -65,11 +72,14 @@ public class DataSource implements JRDataSource {
         if (dataSourceColumnItemParamValue.getData().size() > index) {
           value = dataSourceColumnItemParamValue.getData().get(index);
         }
+        LOGGER.debug("param name: " + object + ", value: " + value);
         mapOfParams.put((String) object, value);
         index++;
       }
       dataSourceItems.remove(dataSourceColumnItemParamName);
       dataSourceItems.remove(dataSourceColumnItemParamValue);
+    } else {
+      LOGGER.warn("Params not found.");
     }
   }
 
@@ -81,14 +91,23 @@ public class DataSource implements JRDataSource {
 
   @Override
   public Object getFieldValue(JRField jrf) throws JRException {
+
+    LOGGER.trace("finding " + jrf.getName() + " (" + jrf.getValueClassName() + ")");
     for (DataSourceColumnItem dataSourceColumnItems : dataSourceItems) {
+
       if (dataSourceColumnItems.getName().equals(jrf.getName())) {
+
+        LOGGER.trace("found dataSourceColumnItems");
         if (dataSourceColumnItems.hasNext()) {
           Object object = dataSourceColumnItems.next();
+
           if (!jrf.getValueClass().equals(object.getClass())) {
+            LOGGER.error("Nenalezen ocekavany. ocekavan: " + jrf.getValueClass() + ", nalezen: " + object.getClass());
             MessagesUtils.showError(null, "Nenalezen ocekavany. ocekavan: " + jrf.getValueClass() + ", nalezen: " + object.
                 getClass());
           }
+
+          LOGGER.debug("Has next: " + object);
           return object;
         }
       }

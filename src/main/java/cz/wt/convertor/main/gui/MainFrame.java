@@ -18,6 +18,7 @@ import org.slf4j.Logger;
  * @author forrest
  */
 public class MainFrame extends javax.swing.JFrame {
+
   private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(MainFrame.class);
 
   /** Creates new form MainFrame */

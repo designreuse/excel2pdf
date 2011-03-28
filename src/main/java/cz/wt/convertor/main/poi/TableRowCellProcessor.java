@@ -46,7 +46,7 @@ public class TableRowCellProcessor {
 
     dataSource.findParam();
     if (workbook.getSheetAt(0) != null) {
-      // -1 ptz se pocita u header
+      // -1 ptz se pocita i header
       dataSource.setItemCounter(workbook.getSheetAt(0).getPhysicalNumberOfRows()-1);
     }
 
